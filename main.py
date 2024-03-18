@@ -29,7 +29,7 @@ urls = [
     'https://learn.microsoft.com/en-us/certifications/resources/study-guides/az-400',
 ]
 
-#Configure vector store settings
+# Configure vector store settings
 vector_store_address: str = os.getenv("AZURE_SEARCH_ENDPOINT")
 vector_store_password: str = os.getenv("AZURE_SEARCH_ADMIN_KEY")
 
@@ -41,16 +41,6 @@ vector_store: AzureSearch = AzureSearch(
     index_name=index_name,
     embedding_function=embeddings.embed_query,
 )
-
-"""
-loader = TextLoader("oppenheimer_script.txt", encoding="utf-8")
-
-documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
-docs = text_splitter.split_documents(documents)
-
-vector_store.add_documents(documents=docs)
-"""
 
 loader = UnstructuredURLLoader(urls=urls)
 documents = loader.load()
@@ -68,7 +58,7 @@ docs = vector_store.similarity_search(
 print(docs[0].page_content)
 
 
-#Perform a vector similarity search with relevance scores
+# Perform a vector similarity search with relevance scores
 docs_and_scores = vector_store.similarity_search_with_relevance_scores(
     query="What are the skills for Azure Administrator",
     k=4,
