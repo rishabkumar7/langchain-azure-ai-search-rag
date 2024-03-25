@@ -25,7 +25,7 @@ vector_store: AzureSearch = AzureSearch(
 )
 
 
-def project_idea(query, k=4):
+def project_idea(certification, level, k=4):
     """
     This function takes a query and an optional parameter k, performs a similarity search on the vector store, joins the page content of the returned documents, invokes the language model with the query and the documents, and returns the response from the language model.
     
@@ -39,7 +39,7 @@ def project_idea(query, k=4):
 
     # Perform a similarity search on the vector store
     docs = vector_store.similarity_search(
-    query=query,
+    query=certification,
     k=k,
     search_type="similarity",
     )
@@ -49,27 +49,37 @@ def project_idea(query, k=4):
     llm = OpenAI()
 
     prompt = PromptTemplate(
-        input_variables=["query", "docs"],
+        input_variables=["certification", "level", "docs"],
         template="""
-        You are a helpful cloud instructor that that can answer questions about Microsoft Azure Certifications based on the certification guide.
+        You are a helpful cloud instructor that provides cloud project ideas about Microsoft Azure Certifications based on the certification guide.
         
-        Answer the following question: {query}
+        Give me a project idea for certification: {certification} of the level: {level}
         By searching the following certification guide: {docs}
         
-        Only use the factual information from the guide to answer the question.
+        Only use the factual information from the guide to provide the project idea.
         
         If you feel like you don't have enough information to answer the question, say "I don't know".
         
-        Your answers should be verbose and detailed. If asked about a project idea, include a Project Name, Project Description, Services Used in markdown format.
+        Your answers should be verbose and detailed. Include a Project Name, Project Description, list of Services Used and Steps to make the project. Make sure your response is in markdown format like:
+
+        ### Project Name:
+        Project Description:
+        Services Used:
+        - Service 1
+        - Service 2
+        #### Steps:
+        - Step 1
+        - Step 2
         """,
     )
     
     chain = prompt | llm
     
-    response = chain.invoke({"query":query, "docs":docs})
+    response = chain.invoke({"certification":certification, "level":level, "docs":docs})
     
-    response = response.replace("\n", "")
+    #response = response.replace("\n", "")
+    print (response)
     return response
 
 # Test the function with a query
-print(project_idea(query="How much experience do I need for AZ-104"))
+#print(project_idea(query="How much experience do I need for AZ-104"))
