@@ -1,1 +1,1 @@
-# langchain-azure-ai-search-rag
+# LangChain RAG with Azure AI Search
