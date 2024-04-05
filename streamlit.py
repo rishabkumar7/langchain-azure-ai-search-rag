@@ -2,15 +2,8 @@ import streamlit as st
 import app as ai
 import textwrap
 
-st.title("☁️Cloud Instructor")
+st.title("☁️Cloud Homework")
 
-"""
-query = st.text_area(
-            label="Ask me, how can I help you?",
-            max_chars=500,
-            key="question"
-            )
-"""
 
 certification = st.selectbox(
     'Microsoft Azure Certification',
@@ -22,5 +15,5 @@ level = st.selectbox(
 
 
 if certification and level:
-  response = ai.project_idea(certification, level)
-  st.markdown(response)
+    response = ai.project_idea(certification, level)
+    st.markdown(response)
