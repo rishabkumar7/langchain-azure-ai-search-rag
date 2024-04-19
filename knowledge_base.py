@@ -2,10 +2,8 @@ import os
 
 from langchain_community.vectorstores.azuresearch import AzureSearch
 from langchain_openai import OpenAIEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import UnstructuredURLLoader
-from langchain_community.document_loaders import TextLoader
 
 from dotenv import load_dotenv
 
@@ -55,15 +53,4 @@ docs = vector_store.similarity_search(
     k=3,
     search_type="similarity",
 )
-print(docs[0].page_content)
-
-
-# Perform a vector similarity search with relevance scores
-docs_and_scores = vector_store.similarity_search_with_relevance_scores(
-    query="What are the skills for Azure Administrator",
-    k=4,
-    score_threshold=0.80,
-)
-from pprint import pprint
-
-pprint(docs_and_scores)
+print(docs)
