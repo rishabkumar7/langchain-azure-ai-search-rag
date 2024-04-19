@@ -7,7 +7,7 @@ st.title("☁️Cloud Homework")
 
 certification = st.selectbox(
     'Microsoft Azure Certification',
-    ('AZ-900', 'AZ-104', 'AZ-305', 'AZ-400'))
+    ('AZ-104', 'AZ-204' 'AZ-305', 'AZ-400'))
 
 level = st.selectbox(
     'Project Level',
