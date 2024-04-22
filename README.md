@@ -2,6 +2,10 @@
 
 This repository contains a Streamlit application that generates project ideas based on Microsoft Azure Certifications and the level of the project (beginner, intermediate, advanced). The application uses the LangChain RAG (Retrieval-Augmented Generation) model with Azure AI Search to generate the project ideas.
 
+## Architecture
+
+![Architecture for the project](./architecture.png)
+
 ## Features
 
 - Select a Microsoft Azure Certification from a dropdown list (AZ-900, AZ-104, AZ-305, AZ-400).
