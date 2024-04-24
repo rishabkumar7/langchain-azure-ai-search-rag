@@ -4,3 +4,5 @@ azure-search-documents
 azure-identity
 python-dotenv
 streamlit
+langchain-community
+unstructured
