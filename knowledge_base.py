@@ -30,27 +30,28 @@ urls = [
 # Configure vector store settings
 vector_store_address: str = os.getenv("AZURE_SEARCH_ENDPOINT")
 vector_store_password: str = os.getenv("AZURE_SEARCH_ADMIN_KEY")
-
-
 index_name: str = "langchain-vector-demo"
+
+
+# Initialize the Azure Search vector store
 vector_store: AzureSearch = AzureSearch(
     azure_search_endpoint=vector_store_address,
     azure_search_key=vector_store_password,
     index_name=index_name,
-    embedding_function=embeddings.embed_query,
+    embedding_function=embeddings.embed_query
 )
 
-loader = UnstructuredURLLoader(urls=urls)
+
+
+# Load and chunk the documents
+loader = UnstructuredURLLoader(urls)
 documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=200)
 docs = text_splitter.split_documents(documents)
 
-vector_store.add_documents(documents=docs)
+vector_store.add_documents(docs)
 
 # Perform a similarity search
-docs = vector_store.similarity_search(
-    query="Azure Administrator",
-    k=3,
-    search_type="similarity",
-)
+docs = vector_store.similarity_search(query="Azure Administrator", k=3)
+
 print(docs)
